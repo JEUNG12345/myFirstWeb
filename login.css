@@ -1,0 +1,66 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f8f8;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* 내부 요소를 가운데 정렬 */
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* 입력 필드 중앙 정렬 */
+    width: 100%;
+}
+
+input {
+    width: 90%;  /* 너비를 90%로 조정해서 정렬 */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center; /* 입력한 텍스트도 가운데 정렬 */
+}
+
+button {
+    width: 90%;
+    padding: 10px;
+    background-color: #c62917;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #a52212;
+}
+
+.links {
+    margin-top: 10px;
+}
+
+.links a {
+    text-decoration: none;
+    color: #c62917;
+    font-size: 14px;
+}

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="CSS.css" />
+		<title>에브리타임</title>
+		<link rel="icon" href="https://play-lh.googleusercontent.com/0oDBGRaLXdz92kZGHpCNts6KQUr38rG4uCTrV8_32WEyMy70tzC5CM5KbPk3yFoVrwM"/>
+	</head>
+	<body>
+		
+		<header>
+			<div class="container">
+
+				<div class="logo">
+					<img
+						src="https://play-lh.googleusercontent.com/0oDBGRaLXdz92kZGHpCNts6KQUr38rG4uCTrV8_32WEyMy70tzC5CM5KbPk3yFoVrwM"
+					/>
+					<p>
+						<span>시간표</span>
+						<span>kh대</span>
+					</p>
+				</div>
+
+				<div class="menu">
+					<ul>
+						<li><a href="login.html">로그인</a></li>
+						<li>
+							<a></a>
+						</li>
+						<li><a href="boredPage.html">게시판</a></li>
+						<li><a href="/">학점계산기</a></li>
+						<li><a href="/">친구</a></li>
+						<li><a href="/">책방</a></li>
+						<li><a href="/">캠퍼스픽</a></li>
+					</ul>
+				</div>
+				<div class="icon">
+					<img src="https://cdn-icons-png.flaticon.com/512/1159/1159740.png" />
+					<img src="https://cdn-icons-png.flaticon.com/512/66/66933.png" />
+				</div>
+			</div>
+		</header>
+		
+		<main>
+            <div class="container1">
+				<aside>
+					<form class="select">
+						<select id="semesters" onchange="changeSemester()">
+							<option value="2025_1">2025년 1학기</option>
+							<option value="2024_winter">2024년 겨울학기</option>
+							<option value="2024_2">2024년 2학기</option>
+							<option value="2024_summer">2024년 여름학기</option>
+							<option value="2024_1">2024년 1학기</option>
+							<option value="2023_winter">2023년 겨울학기</option>
+							<option value="2023_2">2023년 2학기</option>
+							<option value="2023_summer">2023년 여름학기</option>
+							<option value="2023_1">2023년 1학기</option>
+							<option value="2022_winter">2022년 겨울학기</option>
+							<option value="2022_2">2022년 2학기</option>
+							<option value="2022_summer">2022년 여름학기</option>
+							<option value="2022_1">2022년 1학기</option>
+							<option value="2021_winter">2021년 겨울학기</option>
+							<option value="2021_2">2021년 2학기</option>
+							<option value="2021_summer">2021년 여름학기</option>
+							<option value="2021_1">2021년 1학기</option>
+							<option value="2020_winter">2020년 겨울학기</option>
+							<option value="2020_2">2020년 2학기</option>
+							<option value="2020_summer">2020년 여름학기</option>
+							<option value="2020_1">2020년 1학기</option>
+							<option value="2019_winter">2019년 겨울학기</option>
+							<option value="2019_2">2019년 2학기</option>
+							<option value="2019_summer">2019년 여름학기</option>
+							<option value="2019_1">2019년 1학기</option>
+							<option value="2018_winter">2018년 겨울학기</option>
+							<option value="2018_2">2018년 2학기</option>
+							<option value="2018_summer">2018년 여름학기</option>
+							<option value="2018_1">2018년 1학기</option>
+							<option value="2017_winter">2017년 겨울학기</option>
+							<option value="2017_2">2017년 2학기</option>
+							<option value="2017_summer">2017년 여름학기</option>
+							<option value="2017_1">2017년 1학기</option>
+						</select>
+					</form>
+					
+					<div class="current"> 
+						<p>시간표 1</p>
+					</div>
+					<div class="choice"> 
+					<ul>
+						<a href=''><li><span>시간표1</span></li></a>
+						<a href=''><li><span>시간표2</span></li></a>
+						<a href=''><li><span>시간표3</span></li></a>
+						<a href=''><li><span>
+							새 시간표 만들기
+							</span></li></a>
+					</ul>
+					</div>
+					<div class="button-container">
+						<button class="button" onclick="openSearchModal()">
+							<p>🔍 수업 목록에서 검색</p>
+						</button>
+						
+						<!-- 검색 모달창 -->
+						<div id="searchModal" class="popup">
+							<div class="popup-content">
+								<span class="close-btn" onclick="closeSearchModal()">&times;</span>
+								<h3>수업 검색</h3>
+								<input type="text" id="searchInput" placeholder="수업명을 입력하세요..." oninput="searchCourses()">
+								<ul id="searchResults"></ul>
+							</div>
+						</div>
+
+
+						<button class="button2" onclick="openPopup()">
+							<p>➕ 직접 추가</p>
+						</button>
+						<button class="button3" onclick="openDeletePopup()">
+							<p>🗑️ 시간표 삭제</p>
+						</button>
+						<button class="button2 delete-selected-btn" onclick="openDeleteSelectedPopup()">
+							<p>❌ 선택 삭제</p>
+						</button>
+						
+						<!-- 선택 삭제 확인 팝업 -->
+						<div id="deleteSelectedPopup" class="popup">
+							<div class="popup-content">
+								<span class="close-btn" onclick="closeDeleteSelectedPopup()">&times;</span>
+								<h3>선택 삭제</h3>
+								<p id="selectedCellInfo">삭제할 시간을 선택하세요.</p>
+								<button onclick="deleteSelectedClass()">삭제</button>
+							</div>
+						</div>
+						
+					
+						<!-- 강의 추가 입력 폼 (초기에는 숨김) -->
+						<div id="addClassPopup" class="popup">
+							<div class="popup-content">
+								<span class="close-btn" onclick="closePopup()">&times;</span>
+								<h3>강의 추가</h3>
+								<input type="text" id="className" placeholder="강의명 입력">
+								<select id="daySelect">
+									<option value="1">월</option>
+									<option value="2">화</option>
+									<option value="3">수</option>
+									<option value="4">목</option>
+									<option value="5">금</option>
+								</select>
+								<select id="periodSelect">
+									<option value="1">1교시</option>
+									<option value="2">2교시</option>
+									<option value="3">3교시</option>
+									<option value="4">4교시</option>
+									<option value="5">5교시</option>
+									<option value="6">6교시</option>
+									<option value="7">7교시</option>
+									<option value="8">8교시</option>
+									<option value="9">9교시</option>
+									<option value="10">10교시</option>
+									<option value="11">11교시</option>
+									<option value="12">12교시</option>
+									<option value="13">13교시</option>
+									<option value="14">14교시</option>
+									<option value="15">15교시</option>
+								</select>
+								<button onclick="addClass()">강의 추가</button>
+							</div>
+						</div>
+					
+						<!-- 시간표 삭제 확인 팝업 -->
+						<div id="deletePopup" class="popup">
+							<div class="popup-content">
+								<span class="close-btn" onclick="closeDeletePopup()">&times;</span>
+								<h3>시간표 삭제</h3>
+								<p>정말로 현재 시간표를 삭제하시겠습니까?</p>
+								<button onclick="deleteSchedule()">삭제</button>
+							</div>
+						</div>
+					</div>
+					
+					
+				</aside>
+					<table>
+						<colgroup>
+						<col class="col1" />
+						<col class="col2" />
+						<col class="col3" />
+						<col class="col4" />
+						<col class="col5" />
+						<col class="col6" />
+					</colgroup>
+						<tr class="thead">
+							<td></td>
+							<td>월</td>
+							<td>화</td>
+							<td>수</td>
+							<td>목</td>
+							<td>금</td>
+						</tr>
+						<tr>
+							<td>1교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>2교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>3교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>4교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>5교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>6교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>7교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>8교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>9교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>10교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>11교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>12교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>13교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>14교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>15교시</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+
+
+
+
+
+			</div>
+
+            
+		</main>
+		
+		<script>
+			// 팝업 열기
+			function openPopup() {
+        document.getElementById("className").value = ""; // 강의명 초기화
+        document.getElementById("daySelect").selectedIndex = 0; // 요일 초기화
+        document.getElementById("periodSelect").selectedIndex = 0; // 교시 초기화
+        document.getElementById("addClassPopup").style.display = "flex";
+    }
+		
+			// 팝업 닫기
+			function closePopup() {
+				document.getElementById("addClassPopup").style.display = "none";
+			}
+		
+			// 강의 추가 기능
+			function addClass() {
+				const className = document.getElementById("className").value.trim();
+				const day = document.getElementById("daySelect").value;
+				const period = document.getElementById("periodSelect").value;
+		
+				if (!className) {
+					alert("강의명을 입력하세요.");
+					return;
+				}
+		
+				// 해당 요일, 교시의 셀을 찾기
+				const cell = document.querySelector(`tr:nth-child(${parseInt(period) + 1}) td:nth-child(${parseInt(day) + 1})`);
+				
+				if (cell.innerHTML.trim() !== "") {
+					alert("이미 해당 시간에 강의가 있습니다!");
+					return;
+				}
+		
+				// 강의 추가
+				cell.innerHTML = className;
+				saveSchedule(); // 저장
+				closePopup(); // 팝업 닫기
+				document.getElementById("className").value = ""; // 입력값 초기화
+			}
+		
+			// 시간표 저장 (localStorage 활용)
+			function saveSchedule() {
+				let schedule = [];
+				document.querySelectorAll("tr").forEach((row, rowIndex) => {
+					if (rowIndex > 0) { // 첫 번째 행(요일) 제외
+						let rowData = [];
+						row.querySelectorAll("td").forEach((cell, cellIndex) => {
+							if (cellIndex > 0) { // 첫 번째 열(교시) 제외
+								rowData.push(cell.innerHTML);
+							}
+						});
+						schedule.push(rowData);
+					}
+				});
+		
+				localStorage.setItem("schedule", JSON.stringify(schedule));
+			}
+		
+			// 저장된 시간표 불러오기
+			function loadSchedule() {
+				const savedSchedule = localStorage.getItem("schedule");
+				if (savedSchedule) {
+					let schedule = JSON.parse(savedSchedule);
+					document.querySelectorAll("tr").forEach((row, rowIndex) => {
+						if (rowIndex > 0) {
+							row.querySelectorAll("td").forEach((cell, cellIndex) => {
+								if (cellIndex > 0) {
+									cell.innerHTML = schedule[rowIndex - 1][cellIndex - 1] || "";
+								}
+							});
+						}
+					});
+				}
+			}
+
+
+		</script>
+
+
+
+<script>
+    function changeSemester() {
+    const selectedSemester = document.getElementById("semesters").value;
+    localStorage.setItem("selectedSemester", selectedSemester); // 선택한 학기 저장
+
+    // 테이블 초기화 (기존 강의 삭제)
+    document.querySelectorAll("tr").forEach((row, rowIndex) => {
+        if (rowIndex > 0) { // 첫 번째 행(요일) 제외
+            row.querySelectorAll("td").forEach((cell, cellIndex) => {
+                if (cellIndex > 0) { // 첫 번째 열(교시) 제외
+                    cell.innerHTML = "";
+                }
+            });
+        }
+    });
+
+    loadSchedule(); // 선택한 학기의 시간표 불러오기
+}
+
+
+
+function saveSchedule() {
+    const selectedSemester = localStorage.getItem("selectedSemester") || "2025_1"; // 기본값
+    let schedule = [];
+
+    document.querySelectorAll("tr").forEach((row, rowIndex) => {
+        if (rowIndex > 0) { // 첫 번째 행(요일) 제외
+            let rowData = [];
+            row.querySelectorAll("td").forEach((cell, cellIndex) => {
+                if (cellIndex > 0) { // 첫 번째 열(교시) 제외
+                    rowData.push(cell.innerHTML);
+                }
+            });
+            schedule.push(rowData);
+        }
+    });
+
+    localStorage.setItem(`schedule_${selectedSemester}`, JSON.stringify(schedule)); // 학기별 저장
+}
+
+
+function loadSchedule() {
+    const selectedSemester = localStorage.getItem("selectedSemester") || "2025_1"; // 기본값 설정
+    document.getElementById("semesters").value = selectedSemester;
+
+    const savedSchedule = localStorage.getItem(`schedule_${selectedSemester}`);
+    if (savedSchedule) {
+        let schedule = JSON.parse(savedSchedule);
+        document.querySelectorAll("tr").forEach((row, rowIndex) => {
+            if (rowIndex > 0) {
+                row.querySelectorAll("td").forEach((cell, cellIndex) => {
+                    if (cellIndex > 0) {
+                        cell.innerHTML = schedule[rowIndex - 1][cellIndex - 1] || "";
+                    }
+                });
+            }
+        });
+    }
+}
+
+
+    // 시간표 변경 시 자동 저장 (셀 변경 감지)
+    document.querySelectorAll("td").forEach(cell => {
+        cell.addEventListener("input", saveSchedule);
+    });
+
+    // 페이지 로드 시 시간표 불러오기
+    window.onload = loadSchedule;
+</script>
+
+
+<script>
+    // 팝업 열기
+    function openPopup() {
+        document.getElementById("addClassPopup").style.display = "flex";
+    }
+
+    // 팝업 닫기
+    function closePopup() {
+        document.getElementById("addClassPopup").style.display = "none";
+    }
+
+    // 시간표 삭제 팝업 열기
+    function openDeletePopup() {
+        document.getElementById("deletePopup").style.display = "flex";
+    }
+
+    // 시간표 삭제 팝업 닫기
+    function closeDeletePopup() {
+        document.getElementById("deletePopup").style.display = "none";
+    }
+
+    // 강의 추가 기능
+    function addClass() {
+        const className = document.getElementById("className").value.trim();
+        const day = document.getElementById("daySelect").value;
+        const period = document.getElementById("periodSelect").value;
+
+        if (!className) {
+            alert("강의명을 입력하세요.");
+            return;
+        }
+
+        // 해당 요일, 교시의 셀을 찾기
+        const cell = document.querySelector(`tr:nth-child(${parseInt(period) + 1}) td:nth-child(${parseInt(day) + 1})`);
+        
+        if (cell.innerHTML.trim() !== "") {
+            alert("이미 해당 시간에 강의가 있습니다!");
+            return;
+        }
+
+        // 강의 추가
+        cell.innerHTML = className;
+        saveSchedule(); // 저장
+        closePopup(); // 팝업 닫기
+        document.getElementById("className").value = ""; // 입력값 초기화
+    }
+
+    // 시간표 삭제 기능
+    function deleteSchedule() {
+		document.querySelectorAll("tr").forEach((row, rowIndex) => {
+			if (rowIndex > 0) { // 첫 번째 행(요일) 제외
+				row.querySelectorAll("td").forEach((cell, cellIndex) => {
+					if (cellIndex > 0) { // 첫 번째 열(교시) 제외
+						cell.innerHTML = "";
+					}
+				});
+			}
+		});
+
+		const selectedSemester = localStorage.getItem("selectedSemester") || "2025_1"; 
+		localStorage.removeItem(`schedule_${selectedSemester}`); // 학기별 데이터 삭제
+
+		saveSchedule(); // 저장된 데이터 업데이트
+		closeDeletePopup(); // 팝업 닫기
+	}
+
+
+
+
+
+    // 시간표 저장 (localStorage 활용)
+    function saveSchedule() {
+        const selectedSemester = localStorage.getItem("selectedSemester") || "2025_1"; // 기본값
+        let schedule = [];
+
+        document.querySelectorAll("tr").forEach((row, rowIndex) => {
+            if (rowIndex > 0) {
+                let rowData = [];
+                row.querySelectorAll("td").forEach((cell, cellIndex) => {
+                    if (cellIndex > 0) {
+                        rowData.push(cell.innerHTML);
+                    }
+                });
+                schedule.push(rowData);
+            }
+        });
+
+        localStorage.setItem(`schedule_${selectedSemester}`, JSON.stringify(schedule)); // 학기별 시간표 저장
+    }
+
+    function loadSchedule() {
+        const selectedSemester = localStorage.getItem("selectedSemester") || "2025_1"; // 기본값
+        document.getElementById("semesters").value = selectedSemester;
+
+        const savedSchedule = localStorage.getItem(`schedule_${selectedSemester}`);
+        if (savedSchedule) {
+            let schedule = JSON.parse(savedSchedule);
+            document.querySelectorAll("tr").forEach((row, rowIndex) => {
+                if (rowIndex > 0) {
+                    row.querySelectorAll("td").forEach((cell, cellIndex) => {
+                        if (cellIndex > 0) {
+                            cell.innerHTML = schedule[rowIndex - 1][cellIndex - 1] || "";
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+</script>
+
+<script>
+    let selectedCell = null; // 선택된 셀 저장
+
+    // 특정 강의(셀) 선택
+    document.querySelectorAll("td").forEach(cell => {
+    cell.addEventListener("click", function() {
+        if (this.cellIndex > 0 && this.innerHTML.trim() !== "") { // 첫 번째 열(교시) 제외 & 비어 있지 않은 셀만
+            if (selectedCell === this) {
+                // 같은 셀을 다시 클릭하면 선택 해제
+                selectedCell.classList.remove("selected-cell");
+                selectedCell = null;
+                document.getElementById("selectedCellInfo").innerText = "삭제할 시간을 선택하세요.";
+                return;
+            }
+            
+            if (selectedCell) {
+                selectedCell.classList.remove("selected-cell"); // 기존 선택 해제
+            }
+            
+            this.classList.add("selected-cell");
+            selectedCell = this;
+            document.getElementById("selectedCellInfo").innerText = `선택한 강의: ${this.innerHTML}`;
+        }
+    });
+});
+
+
+    // 선택 삭제 팝업 열기
+    function openDeleteSelectedPopup() {
+        if (!selectedCell) {
+            alert("삭제할 강의를 선택하세요!");
+            return;
+        }
+        document.getElementById("deleteSelectedPopup").style.display = "flex";
+    }
+
+    // 선택 삭제 팝업 닫기
+    function closeDeleteSelectedPopup() {
+        document.getElementById("deleteSelectedPopup").style.display = "none";
+    }
+
+    // 선택한 강의 삭제
+    function deleteSelectedClass() {
+        if (selectedCell) {
+            selectedCell.innerHTML = ""; // 셀 내용 삭제
+            selectedCell.classList.remove("selected-cell"); // 선택 효과 제거
+            saveSchedule(); // 시간표 업데이트
+            closeDeleteSelectedPopup(); // 팝업 닫기
+        }
+    }
+
+
+
+
+	function openSearchModal() {
+    	document.getElementById("searchModal").style.display = "flex";
+	}
+
+	function closeSearchModal() {
+		document.getElementById("searchModal").style.display = "none";
+		document.getElementById("searchResults").innerHTML = ""; // 검색 결과 초기화
+	}
+
+	const courseList = [
+		{ name: "자료구조", professor: "김교수", time: "월 3교시" },
+		{ name: "운영체제", professor: "이교수", time: "수 2교시" },
+		{ name: "웹 프로그래밍", professor: "박교수", time: "화 5교시" },
+		{ name: "알고리즘", professor: "최교수", time: "목 1교시" },
+		{ name: "데이터베이스", professor: "정교수", time: "금 4교시" }
+	];
+
+	function searchCourses() {
+		let input = document.getElementById("searchInput").value.toLowerCase();
+		let resultsContainer = document.getElementById("searchResults");
+
+		resultsContainer.innerHTML = ""; // 기존 검색 결과 초기화
+
+		if (input.trim() === "") {
+			return; // 입력값이 없으면 검색 결과를 표시하지 않음
+		}
+
+		let filteredCourses = courseList.filter(course => course.name.toLowerCase().includes(input));
+
+		if (filteredCourses.length === 0) {
+			resultsContainer.innerHTML = "<li>검색 결과가 없습니다.</li>";
+			return;
+		}
+
+		filteredCourses.forEach(course => {
+			let li = document.createElement("li");
+			li.innerHTML = `<strong>${course.name}</strong> - ${course.professor} (${course.time})`;
+			li.onclick = () => addSelectedCourse(course);
+			resultsContainer.appendChild(li);
+		});
+	}
+
+
+	function addSelectedCourse(course) {
+    let [day, period] = course.time.split(" ");
+    let dayMap = { "월": 1, "화": 2, "수": 3, "목": 4, "금": 5 };
+    let periodNumber = parseInt(period.replace("교시", ""));
+    
+    let cell = document.querySelector(`tr:nth-child(${periodNumber + 1}) td:nth-child(${dayMap[day] + 1})`);
+
+    if (cell.innerHTML.trim() !== "") {
+        alert("이미 해당 시간에 강의가 있습니다!");
+        return;
+    }
+
+    cell.innerHTML = course.name;
+    saveSchedule(); // 로컬 스토리지에 저장
+    closeSearchModal(); // 모달창 닫기
+}
+
+
+</script>
+
+
+		
+	</body>
+</html>

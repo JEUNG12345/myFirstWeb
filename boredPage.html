@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <link rel="stylesheet" href="board.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="main.html"><img src="https://play-lh.googleusercontent.com/0oDBGRaLXdz92kZGHpCNts6KQUr38rG4uCTrV8_32WEyMy70tzC5CM5KbPk3yFoVrwM" alt="로고"></a>
+                <p>게시판</p>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="board-container">
+            <h2>게시판</h2>
+            <input type="text" class="search-box" placeholder="검색어 입력" onkeyup="searchPosts()">
+            <script>
+                function searchPosts() {
+                    const keyword = document.querySelector(".search-box").value.toLowerCase();
+                    const posts = document.querySelectorAll(".post");
+            
+                    posts.forEach(post => {
+                        const content = post.innerText.toLowerCase();
+                        if (content.includes(keyword)) {
+                            post.style.display = "block";
+                        } else {
+                            post.style.display = "none";
+                        }
+                    });
+                }
+            </script>
+            
+            <form class="post-form" onsubmit="return addPost(event)">
+                <textarea id="postContent" placeholder="게시글을 입력하세요..." required></textarea>
+                <button type="submit">게시</button>
+            </form>
+            <script>
+                function addPost(event) {
+                    event.preventDefault(); // 새로고침 방지
+            
+                    const postList = document.querySelector(".post-list");
+                    const postContent = document.getElementById("postContent").value;
+            
+                    if (!postContent.trim()) {
+                        alert("게시글을 입력하세요.");
+                        return;
+                    }
+            
+                    // 새 게시글 HTML 생성
+                    const newPost = document.createElement("div");
+                    newPost.classList.add("post");
+                    newPost.innerHTML = `
+                        <p>
+                            <strong>새 사용자</strong> 
+                            <span class="post-date"> --${new Date().toISOString().split('T')[0]}--</span>
+                            <button class="delete-btn" onclick="deletePost(this)">🗑️</button>
+                        </p>
+                        <p>${postContent}</p>
+                        <div class="comment-section">
+                            <textarea class="comment-input" placeholder="댓글을 입력하세요..."></textarea>
+                            <button class="comment-btn" onclick="addComment(this)">댓글 달기</button>
+                        </div>
+                        <div class="comment-list"></div>
+                    `;
+            
+                    // 게시글 목록에 추가
+                    postList.prepend(newPost);
+                    document.getElementById("postContent").value = ""; // 입력창 초기화
+                }
+                function deletePost(button) {
+                    if (confirm("정말로 삭제하시겠습니까?")) {
+                        button.closest(".post").remove();
+                    }
+                }
+                function addComment(button) {
+                    const commentInput = button.previousElementSibling;
+                    const commentText = commentInput.value.trim();
+                    if (!commentText) {
+                        alert("댓글을 입력하세요.");
+                        return;
+                    }
+
+                    const commentList = button.parentElement.nextElementSibling;
+                    const newComment = document.createElement("p");
+                    newComment.innerHTML = `<strong>익명:</strong> ${commentText}`;
+                    
+                    commentList.appendChild(newComment);
+                    commentInput.value = ""; // 입력창 초기화
+                }
+            </script>
+            
+            <div class="post-list">
+                <div class="post">
+                    <p>
+                        <strong>사용자1</strong>
+                        <span class="post-date"> --2025-02-14--</span>
+                        <button class="delete-btn">🗑️</button>
+                    </p>
+                    <p>이곳은 샘플 게시글입니다.</p>
+                
+                    <!-- 댓글 입력창 -->
+                    <div class="comment-section">
+                        <textarea class="comment-input" placeholder="댓글을 입력하세요..."></textarea>
+                        <button class="comment-btn">댓글 달기</button>
+                    </div>
+                
+                    <!-- 댓글 목록 -->
+                    <div class="comment-list">
+                        <p><strong>사용자2:</strong> 좋은 게시글이네요!</p>
+                        <p><strong>사용자3:</strong> 감사합니다!</p>
+                    </div>
+                </div>
+                
+                <div class="post">
+                    <p><strong>사용자2</strong></p>
+                    <p>게시판이 잘 동작하는지 확인 중입니다.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
